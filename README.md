@@ -2,6 +2,18 @@
 
 Hello! This README will act as documentation for my thought process and design decisions when completing this problem. 
 
+A Makefile is provided for you to compile the program easily, simply run `make` in the root directory of the repository. To clean up the object and executable files run `make clean`.
+
+The program captures input bytes from stdin and writes them to stdout. Run it like this:
+
+```
+./codec c - for compression
+
+./codec d - for decompression
+```
+
+There is a testing harness provided. Feel free to use it to generate your own test cases. The testing process is outlined in the testing section. Make sure the code is compiled before using it.
+
 1. [Thought Process](#thought-process)
 
 2. [Alternative Algorithms](#alternative-algorithms)
@@ -43,6 +55,8 @@ Output = {0x11, 0x03, 0x05, 0x22, 0x22}
                 count
 ```
 
+When decompressing, you would simply have to iterate and check if the current value is less than 0x80. If it is, add it directly to the buffer of uncompressed data. If it isn't, take the value at the next index and add it as many times as specified by the count value.
+
 ## Alternative Algorithms
 
 After analyzing the problem, I explored several well-known data compression algorithms to identify viable alternatives.
@@ -69,6 +83,13 @@ Here is the flowchart for the compression algorithm.
 
 
 ## Testing
+
+To properly test my code, I also wrote the decompression function descibed at the end of the thought process section which would help validate the lossless compression. Then I created a main file to host some basic I/O processing and facilitate the testing process.
+
+I decided to use python as the test harness for the program because it's simple and I was already familiar with it's subprocess library. The code hosts a couple handwritten test cases and generates some random ones, then hosts a subprocess, writes to it's stdin and captures the output. In each test case, it will compare the original data with the data after decompression and failing if it returns false. If the case is successful, the compression ratio is also displayed. 
+
+I wrote a few edge cases myself and a loop that can generate very large test cases at varying epsilons. The epsilon defines the degree of repetition found in the byte stream, with 0 meaning there is no bias towards repetition and 1 meaning there is only repetition. At high epsilon, this accurately simulates the context provided in the problem description, and you will notice that the compression ratio is much smaller at higher epsilon which is how the algorithm should be working.
+
 
 ## References
 
