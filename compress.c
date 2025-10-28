@@ -1,12 +1,12 @@
 #include "compress.h"
 #include <stdlib.h>
 
-int compress_data(uint8_t* data_ptr, int data_size){
+long compress_data(uint8_t* data_ptr, long data_size){
     // if the data size is less than 3, then there is no point in compressing with this algorithm (refer to README)
     if (data_size < 3) return data_size;
 
     // the index to write to in the buffer
-    int last = 0;
+    long last = 0;
     for (int i = 0; i < data_size; ){
         uint8_t val = data_ptr[i]; // current value 
         uint8_t count = 1; // number of sequential occurences of current value
@@ -32,14 +32,14 @@ int compress_data(uint8_t* data_ptr, int data_size){
 
 }
 
-uint8_t* decompress_data(uint8_t* data_ptr, int* data_size){
+uint8_t* decompress_data(uint8_t* data_ptr, long* data_size){
     // initialize the dynamic array to be 2 times the capacity of the buffer
-    int capacity = *data_size;
-    uint8_t* uncompressed = malloc(2*capacity*sizeof(uint8_t));
+    long capacity = 2*(*data_size);
+    uint8_t* uncompressed = malloc(capacity*sizeof(uint8_t));
     if (uncompressed == NULL) exit(EXIT_FAILURE);
 
     // next index to write to in the buffer
-    int last = 0;
+    long last = 0;
     for (int i = 0; i < *data_size; ){
         // this is a literal
         if(data_ptr[i] <= 0x82){

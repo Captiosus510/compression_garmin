@@ -1,6 +1,6 @@
 # Garmin Compression Assignment
 
-Hi there! Just wanted to thank you again for this opportunity. This README will act as documentation for my thought process and design decisions when completing this problem. 
+Hello! This README will act as documentation for my thought process and design decisions when completing this problem. 
 
 1. [Thought Process](#thought-process)
 
@@ -9,6 +9,8 @@ Hi there! Just wanted to thank you again for this opportunity. This README will 
 3. [Flowchart](#flowchart)
 
 4. [Testing](#testing)
+
+5. [References](#references)
 
 ## Thought Process
 
@@ -43,15 +45,20 @@ Output = {0x11, 0x03, 0x05, 0x22, 0x22}
 
 ## Alternative Algorithms
 
-After stepping through the problem myself, I decided to research alternative algorithms that are used for compressiong. 
+After analyzing the problem, I explored several well-known data compression algorithms to identify viable alternatives.
 
-The above algorithm is more commonly known as RLE (Run Length Encoding). RLE describes each sequence of identical values as a run. When it finds a run, it's replaced by a pair, the data value and the count of the ocurrence. 
+The above algorithm is more commonly known as RLE (Run Length Encoding). RLE compresses consecutive identical values, called runs, by replacing each run with a pair consisting of the data value and the number of occurrences.
 
 Other common algorithms are summarized in the following table:
 
-| Name | Description | Simple | In-Place | Notes |
-|------|:-------|------|------|------|
-| RLE | repetitive sequences collapsed to `count, value` | ✅ | ✅ | |
+| Name | Description | Complexity | In-Place | Other Data Structures | Notes |
+|------|:-------|------|------|------|------|
+| RLE | repetitive sequences collapsed to `count, value` | Low | ✅ | ❌ | good for data with lots of repetitive sequences, works well in this context |
+| Huffman Encoding | shorter bit codes assigned to frequent symbols | Medium | ⚠️ (possible but difficult) | ✅ | uses a Huffman tree to store meanings of bit values, not really gonna work in this context as you can only return data size and you need a huffman tree to decompress as well |
+| LZ77 | dictionary based algorithm that stores repeated patterns as triples of `(offset, length, next character)` | High | ❌ | ✅ | involves dividing the input data into a sliding window that acts as a "history" buffer and a look-ahead buffer. powerful dictionary-based encoding but too complex for in-place |
+
+
+Given the constraints of the problem, I felt that the best solution was an **RLE-like implementation** with the modifications described in the previous section. It provides the simplest in-place algorithm, minimal memory overhead, and avoids the use of auxilliary data structures. 
 
 ## Flowchart
 
@@ -62,3 +69,9 @@ Here is the flowchart for the compression algorithm.
 
 
 ## Testing
+
+## References
+
+- [Huffman Encoding Video - Pizzey Technology](https://www.youtube.com/watch?v=iEm1NRyEe5c)
+- [Run Length Encoding - GeeksForGeeks](https://www.geeksforgeeks.org/dsa/run-length-encoding/)
+- [LZ77 Explanation - Hackernoon](https://hackernoon.com/how-lz77-data-compression-works-yk113te0)

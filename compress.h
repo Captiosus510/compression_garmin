@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-int compress_data(uint8_t* data_ptr, int data_size);
-uint8_t* decompress_data(uint8_t* data_ptr, int *data_size);
+long compress_data(uint8_t* data_ptr, long data_size);
+uint8_t* decompress_data(uint8_t* data_ptr, long *data_size);
 
 #endif // COMPRESS_H
