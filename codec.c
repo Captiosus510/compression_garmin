@@ -2,19 +2,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+uint8_t* read_stdin(long* out_size) {
+    long capacity = 1024;
+    long size = 0;
+    uint8_t* buffer = malloc(capacity);
+    if (!buffer) exit(EXIT_FAILURE);
+
+    int c;
+    while ((c = fgetc(stdin)) != EOF) {
+        buffer[size++] = (uint8_t)c;
+        if (size >= capacity) {
+            capacity *= 2;
+            uint8_t* temp = realloc(buffer, capacity);
+            if (!temp) exit(EXIT_FAILURE);
+            buffer = temp;
+        }
+    }
+
+    *out_size = size;
+    return buffer;
+}
+
 int main(int argc, char** argv){
-    if (argc < 2 || argv[1][0] != 'c' || argv[1][0] == 'd') {
+    setvbuf(stdout, NULL, _IONBF, 0);  // disable buffering
+    if (argc < 2 || (argv[1][0] != 'c' && argv[1][0] != 'd')) {
         fprintf(stderr, "Usage: %s [c|d]\n", argv[0]);
         return 1;
     }
     
-    // read stdin
-    fseek(stdin, 0, SEEK_END);
-    long size = ftell(stdin);
-    rewind(stdin);
-
-    uint8_t* data = malloc(size);
-    fread(data, 1, size, stdin);
+    long size;
+    uint8_t* data = read_stdin(&size);
 
     if (argv[1][0] == 'c'){
         long new_size = compress_data(data, size);
