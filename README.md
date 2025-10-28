@@ -80,7 +80,9 @@ Here is the flowchart for the compression algorithm.
 
 ![Compression Flowchart](./doc/compression_garmin.drawio.png)
 
+Here is the one for the decompression algorithm. I did not include the checks for memory allocation for simplicity.
 
+![Decompression Flowchart](./doc/decompression_garmin.drawio.png)
 
 ## Testing
 
