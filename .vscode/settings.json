@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "compress.h": "c",
-        "stdint.h": "c",
-        "stdio.h": "c"
-    }
-}
