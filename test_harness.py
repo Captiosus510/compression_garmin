@@ -14,6 +14,7 @@ def run_codec(mode, input_data):
     return proc.stdout
 
 def make_test_data():
+    """Generate a variety of test cases for the codec."""
     # handcrafted test cases
     tests = {
         "unit": b'\x41',
@@ -41,6 +42,7 @@ def make_test_data():
     return tests
 
 def test_codec():
+    """Test the codec with various test cases."""
     test_cases = make_test_data()
     for name, data in test_cases.items():
         compressed = run_codec('c', data)
