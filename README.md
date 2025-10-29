@@ -20,9 +20,11 @@ There is a testing harness provided. Feel free to use it to generate your own te
 
 3. [Flowchart](#flowchart)
 
-4. [Testing](#testing)
+4. [Runtime Analysis](#runtime-analysis)
 
-5. [References](#references)
+5. [Testing](#testing)
+
+6. [References](#references)
 
 ## Thought Process
 
@@ -84,6 +86,12 @@ Here is the one for the decompression algorithm. I did not include the checks fo
 
 ![Decompression Flowchart](./doc/decompression_garmin.drawio.png)
 
+## Runtime Analysis
+
+This algorithm runs in time complexity of O(n) with a space complexity of O(1) on compression. 
+
+On decompression, it runs in time and space complexity of O(n).
+
 ## Testing
 
 To properly test my code, I also wrote the decompression function descibed at the end of the thought process section which would help validate the lossless compression. Then I created a main file to host some basic I/O processing and facilitate the testing process.
@@ -98,3 +106,6 @@ I wrote a few edge cases myself and a loop that can generate very large test cas
 - [Huffman Encoding Video - Pizzey Technology](https://www.youtube.com/watch?v=iEm1NRyEe5c)
 - [Run Length Encoding - GeeksForGeeks](https://www.geeksforgeeks.org/dsa/run-length-encoding/)
 - [LZ77 Explanation - Hackernoon](https://hackernoon.com/how-lz77-data-compression-works-yk113te0)
+- ChatGPT - *RLE vs Huffman vs LZ77*
+- ChatGPT - *C testing apparatus example in Python*
+- [Python subprocess API Reference](https://docs.python.org/3/library/subprocess.html)
