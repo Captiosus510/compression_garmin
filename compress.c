@@ -42,7 +42,7 @@ uint8_t* decompress_data(uint8_t* data_ptr, long* data_size){
     // next index to write to in the buffer
     long last = 0;
     for (int i = 0; i < *data_size; ){
-        // this is a literal
+        // this is a literal. simply append it to uncompressed
         if(data_ptr[i] < 0x80){
             if (last >= capacity){
                 capacity *= 2;
